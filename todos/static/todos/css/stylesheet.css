@@ -77,8 +77,12 @@ input {
   color: #687F7F;
 }
 
-button {
+ #submit-button {
   display: none;
+}
+
+#login-button {
+
 }
 
 a {

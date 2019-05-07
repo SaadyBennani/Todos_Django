@@ -4,6 +4,15 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 {% endblock extra_styles %}
 
+{% block login %}
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a>
+{% endif %}
+{% endblock %}
+
 {% block content %}
     <div id='app'>
         <h1>Welcome to your todo list!</h1>
@@ -11,10 +20,11 @@
         <form action="{% url 'todos:add_todo' %}" method='POST'>
             {% csrf_token %}
             <input id='todo-input' type='text' name='todo' placeholder='Enter a task...' />
-            <button type='submit'></button>
+            <button type='submit' id='submit-button'></button>
         </form>
 
         <ul id='todos-container'>
+
             {% for todo in todos %}
                 <li class="{% if todo.completed %} completed {% endif %}">
                     {% if editing and todo.pk == pk %}
